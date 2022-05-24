@@ -65,4 +65,11 @@ def format_output(*required_keys):
 
 
 def add_method_to_instance(klass):
-    pass
+    from types import MethodType
+    from functools import wraps
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            return func()
+        setattr(klass, func.__name__, wrapper)
+        return wrapper  
+    return decorator
